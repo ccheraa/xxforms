@@ -1,0 +1,40 @@
+@use 'colors' as *;
+body {
+  --xxforms-chart-background: var(--card-bg);
+  --xxforms-chart-bar-color: var(--primary-accent);
+  --xxforms-chart-axis-color: var(--border-color);
+  --xxforms-chart-value-color: var(--text-primary);
+  --xxforms-chart-label-color: var(--text-primary);
+}
+.xx-chart {
+	svg {
+    display: inline-block;
+		width: 100%;
+		height: 100%;
+		g[xforms-name] {
+			display: contents;
+		}
+		g.xx-entry {
+			rect {
+				stroke: transparent;
+			}
+			&:hover {
+				rect {
+					stroke: var(--xxforms-chart-axis-color);
+				}
+				text.xx-value {
+					opacity: 1;
+				}
+				text.xx-label {
+					opacity: 1;
+				}
+			}
+			text.xx-value {
+				opacity: 0.2;
+			}
+			text.xx-label {
+				opacity: 0;
+			}
+		}
+	}
+}

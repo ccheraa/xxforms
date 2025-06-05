@@ -1,0 +1,324 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events"
+  xmlns:xx='http://www.xxforms.org/2025/xxforms' xmlns:xf="http://www.w3.org/2002/xforms">
+
+<head>
+  <title>Icons</title>
+  <style>.material-symbols-outlined { vertical-align: -.125em; font-size: inherit }</style>
+  <style>
+    ul.animated li {
+      line-height: 3rem;
+      padding-inline-start: 2rem;
+    }
+
+    table.icons {
+      border-spacing: 8px;
+    }
+
+    table.icons td div {
+      font-size: 24px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    table.icons th {
+      text-align: start;
+    }
+
+    .menu {
+      display: flex;
+      flex-direction: column;
+      max-width: 240px;
+      align-items: stretch;
+      background-color: #f5f5f5;
+      border: 1px solid #e3e3e3;
+      border-radius: 4px;
+      box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.05);
+      margin: 1em;
+    }
+    .menu xforms-repeat,
+    .menu xforms-repeat-item,
+    .menu xforms-trigger,
+    .menu xforms-body {
+      display: contents !important;
+    }
+    .menu button {
+      font-size: 16px;
+      cursor: pointer;
+      background: transparent;
+      border: none;
+      padding: 6px 16px;
+      color: #2e2e2e;
+      transition: all 0.1s ease-in-out;
+    }
+    .menu button:hover {
+      background-color: #fff;
+      color: #000;
+    }
+    .menu button:active {
+      background-color: #2d2b42;
+      color: #f5f5f5;
+    }
+    .menu xforms-label {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .menu xforms-label xforms-output {
+      flex: 1;
+    }
+    .lists {
+      display: flex;
+      gap: 16px;
+      justify-content: space-evenly
+    }
+    .icons-container {
+      display: inline-grid;
+      gap: 16px;
+      align-items: center;
+      justify-items: center;
+    }
+    .icons-container .xx-icon {
+      font-size: 24px;
+      cursor: pointer;
+    }
+    .icons-container.rotations {
+      grid-template-columns: repeat(7, 1fr);
+    }
+    .icons-container.animations {
+      grid-template-columns: repeat(11, 1fr);
+    }
+  </style>
+  <xf:model xmlns="http://www.w3.org/2002/xforms">
+    <xf:instance id="test-data">
+      <data>
+        <menu>
+          <item value="settings">Settings</item>
+          <item value="bolt">Power</item>
+          <item value="open_in_new">Open in a new window</item>
+          <item value="swipe_up">Swipe up</item>
+          <item value="stack_star">Stars</item>
+          <item value="handshake">Handshkae</item>
+        </menu>
+      </data>
+    </xf:instance>
+  </xf:model>
+</head>
+
+<body>
+  <h1>Icons</h1>
+
+  <div class="card">
+    To find your icon, check:
+    <ul>
+      <li><a href="https://fontawesome.com/search?o=r&amp;ic=free&amp;s=solid&amp;ip=classic" target="_blank">Font Awesome</a></li>
+      <li><a href="https://icons.getbootstrap.com/" target="_blank">Bootstrap</a></li>
+      <li><a href="https://fonts.google.com/icons" target="_blank">Material Design Icons</a></li>
+    </ul>
+  </div>
+  <div class="card">
+    <h2>Icons</h2>
+    <table class="icons">
+      <tr>
+        <th>Font Awesome</th>
+        <td>
+          <div>
+            <xx:icon fa="'thumbs-up'" />
+            <xx:icon fa="'circle-user'" />
+            <xx:icon fa="'house'" />
+            <xx:icon fa="'earth-americas'" />
+            <xx:icon fa="'wheelchair'" />
+            <xf:trigger>
+              <xf:label><xx:icon fa="'rotate-right'" />Button</xf:label>
+            </xf:trigger>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <th>Bootstrap</th>
+        <td>
+          <div>
+            <xx:icon bi="'hand-thumbs-up-fill'" />
+            <xx:icon bi="'person-circle'" />
+            <xx:icon bi="'house'" />
+            <xx:icon bi="'globe-europe-africa'" />
+            <xx:icon bi="'person-wheelchair'" />
+            <xf:trigger>
+              <xf:label><xx:icon bi="'arrow-clockwise'" />Button</xf:label>
+            </xf:trigger>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <th>Material</th>
+        <td>
+          <div>
+            <xx:icon mdi="'thumb_up'" />
+            <xx:icon mdi="'account_circle'" />
+            <xx:icon mdi="'home'" />
+            <xx:icon mdi="'public'" />
+            <xx:icon mdi="'accessible'" />
+            <xf:trigger>
+              <xf:label><xx:icon mdi="'refresh'" />Button</xf:label>
+            </xf:trigger>
+          </div>
+        </td>
+      </tr>
+    </table>
+    <xx:code lang="xml"><![CDATA[<xx:icon fa="'font-awesome-icon-name'" />
+<xx:icon bi="'bootstrap-icon-name'" />
+<xx:icon mdi="'material-icon-name'" />
+]]></xx:code>
+      
+    
+  </div>
+
+  <div class="card">
+    <h2>As list bullets</h2>
+    <div class="lists">
+      <ul class="xx-icon-list">
+        <li><xx:icon fa="'thumbs-up'" />List item #1</li>
+        <li><xx:icon fa="'circle-user'" />List item #2</li>
+        <li><xx:icon fa="'house'" />List item #3</li>
+        <li><xx:icon fa="'earth-americas'" />List item #4</li>
+        <li><xx:icon fa="'wheelchair'" />List item #5</li>
+        <li><xx:icon fa="'rotate-right'" />List item #6</li>
+      </ul>
+      <ul class="xx-icon-list">
+        <li><xx:icon bi="'hand-thumbs-up-fill'" />List item #1</li>
+        <li><xx:icon bi="'person-circle'" />List item #2</li>
+        <li><xx:icon bi="'house'" />List item #3</li>
+        <li><xx:icon bi="'globe-europe-africa'" />List item #4</li>
+        <li><xx:icon bi="'person-wheelchair'" />List item #5</li>
+        <li><xx:icon bi="'arrow-clockwise'" />List item #6</li>
+      </ul>
+      <ul class="xx-icon-list">
+        <li><xx:icon mdi="'thumb_up'" />List item #1</li>
+        <li><xx:icon mdi="'account_circle'" />List item #2</li>
+        <li><xx:icon mdi="'home'" />List item #3</li>
+        <li><xx:icon mdi="'public'" />List item #4</li>
+        <li><xx:icon mdi="'accessible'" />List item #5</li>
+        <li><xx:icon mdi="'refresh'" />List item #6</li>
+      </ul>
+    </div>
+  </div>
+  <xx:code lang="xml"><![CDATA[<ul class="xx-icon-list">
+  <li><xx:icon .../>...</li>
+  <li><xx:icon .../>...</li>
+  ...
+</ul>
+]]></xx:code>
+
+  <div class="card">
+    <h2>Rotation &amp; Mirroring</h2>
+    <div class="icons-container rotations">
+      <span></span>
+      <span class="header">original</span>
+      <span class="header">rotate-90</span>
+      <span class="header">rotate-180</span>
+      <span class="header">rotate-270</span>
+      <span class="header">mirror-v</span>
+      <span class="header">mirror-h</span>
+      <b>Font awesome:</b>
+      <xx:icon fa="'comment-dots'" />
+      <xx:icon fa="'comment-dots'" style="rotate-90" />
+      <xx:icon fa="'comment-dots'" style="rotate-180" />
+      <xx:icon fa="'comment-dots'" style="rotate-270" />
+      <xx:icon fa="'comment-dots'" style="mirror-v" />
+      <xx:icon fa="'comment-dots'" style="mirror-h" />
+      <b>Bootstrap:</b>
+      <xx:icon bi="'chat-dots-fill'" />
+      <xx:icon bi="'chat-dots-fill'" style="rotate-90" />
+      <xx:icon bi="'chat-dots-fill'" style="rotate-180" />
+      <xx:icon bi="'chat-dots-fill'" style="rotate-270" />
+      <xx:icon bi="'chat-dots-fill'" style="mirror-v" />
+      <xx:icon bi="'chat-dots-fill'" style="mirror-h" />
+      <b>Material:</b>
+      <xx:icon mdi="'chat'" />
+      <xx:icon mdi="'chat'" style="rotate-90" />
+      <xx:icon mdi="'chat'" style="rotate-180" />
+      <xx:icon mdi="'chat'" style="rotate-270" />
+      <xx:icon mdi="'chat'" style="mirror-v" />
+      <xx:icon mdi="'chat'" style="mirror-h" />
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Animations</h2>
+    <div class="icons-container animations">
+      <span></span>
+      <span class="header">jello</span>
+      <span class="header">spin</span>
+      <span class="header">spin-alt</span>
+      <span class="header">pulse</span>
+      <span class="header">flash</span>
+      <span class="header">wobble</span>
+      <span class="header">bounce</span>
+      <span class="header">shake</span>
+      <span class="header">flip-h</span>
+      <span class="header">flip-v</span>
+      <b>Font awesome:</b>
+      <xx:icon fa="'face-smile'" style="jello" />
+      <xx:icon fa="'face-smile'" style="spin" />
+      <xx:icon fa="'face-smile'" style="spin-alt" />
+      <xx:icon fa="'face-smile'" style="pulse" />
+      <xx:icon fa="'face-smile'" style="flash" />
+      <xx:icon fa="'face-smile'" style="wobble" />
+      <xx:icon fa="'face-smile'" style="bounce" />
+      <xx:icon fa="'face-smile'" style="shake" />
+      <xx:icon fa="'face-smile'" style="flip-h" />
+      <xx:icon fa="'face-smile'" style="flip-v" />
+      <b>Bootstrap:</b>
+      <xx:icon bi="'emoji-smile-fill'" style="jello" />
+      <xx:icon bi="'emoji-smile-fill'" style="spin" />
+      <xx:icon bi="'emoji-smile-fill'" style="spin-alt" />
+      <xx:icon bi="'emoji-smile-fill'" style="pulse" />
+      <xx:icon bi="'emoji-smile-fill'" style="flash" />
+      <xx:icon bi="'emoji-smile-fill'" style="wobble" />
+      <xx:icon bi="'emoji-smile-fill'" style="bounce" />
+      <xx:icon bi="'emoji-smile-fill'" style="shake" />
+      <xx:icon bi="'emoji-smile-fill'" style="flip-h" />
+      <xx:icon bi="'emoji-smile-fill'" style="flip-v" />
+      <b>Material:</b>
+      <xx:icon mdi="'sentiment_satisfied'" style="jello" />
+      <xx:icon mdi="'sentiment_satisfied'" style="spin" />
+      <xx:icon mdi="'sentiment_satisfied'" style="spin-alt" />
+      <xx:icon mdi="'sentiment_satisfied'" style="pulse" />
+      <xx:icon mdi="'sentiment_satisfied'" style="flash" />
+      <xx:icon mdi="'sentiment_satisfied'" style="wobble" />
+      <xx:icon mdi="'sentiment_satisfied'" style="bounce" />
+      <xx:icon mdi="'sentiment_satisfied'" style="shake" />
+      <xx:icon mdi="'sentiment_satisfied'" style="flip-h" />
+      <xx:icon mdi="'sentiment_satisfied'" style="flip-v" />
+    </div>
+  </div>
+  <h3>Style names:</h3>
+  <ul>
+    <li>rotate-90</li>
+    <li>rotate-180</li>
+    <li>rotate-270</li>
+    <li>mirror-v</li>
+    <li>mirror-h</li>
+    <li>jello</li>
+    <li>spin</li>
+    <li>spin-alt</li>
+    <li>pulse</li>
+    <li>flash</li>
+    <li>wobble</li>
+    <li>bounce</li>
+    <li>shake</li>
+    <li>flip-h</li>
+    <li>flip-v</li>
+  </ul>
+  <xx:code lang="xml"><![CDATA[<xx:icon ... style="style-name"/>]]></xx:code>
+
+  <h2>Dynamic icons</h2>
+  <div class="menu">
+    <xf:repeat ref="instance('test-data')/menu/item">
+      <xf:trigger>
+        <xf:label><xx:icon mdi="@value" /><xf:output value="." /></xf:label>
+      </xf:trigger>
+    </xf:repeat>
+  </div>
+</body>
+</html>

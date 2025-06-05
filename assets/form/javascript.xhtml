@@ -1,0 +1,141 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:ev="http://www.w3.org/2001/xml-events"
+  xmlns:xx='http://www.xxforms.org/2025/xxforms'
+  xmlns:xf="http://www.w3.org/2002/xforms"
+>
+  <head>
+    <title>JavaScript</title>
+		<style>
+      .toolbar {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 1em;
+      }
+		</style>
+    <xf:model xmlns="http://www.w3.org/2002/xforms">
+      <xf:instance id="test-data">
+        <data>
+          <employee job="Junior developer">
+            <firstname init="Mr">John</firstname>
+            <lastname>Doe</lastname>
+          </employee>
+        </data>
+      </xf:instance>
+    </xf:model>
+  </head>
+  <body>
+    <h1>Javascript</h1>
+
+    <div class="card">
+      <h2>XForms:</h2>
+      <h3>Test data:</h3>
+      <xf:input ref="instance('test-data')/employee/firstname">
+        <xf:label>First name:</xf:label>
+      </xf:input>
+      <xf:input ref="instance('test-data')/employee/lastname">
+        <xf:label>Last name:</xf:label>
+      </xf:input>
+      <br />
+      <br />
+      <xf:input ref="instance('test-data')/employee/@job">
+        <xf:label>Job title:</xf:label>
+      </xf:input>
+      <hr/>
+      <xf:output value="concat(instance('test-data')/employee/firstname, ' ', instance('test-data')/employee/lastname)">
+        <xf:label>Full name:</xf:label>
+      </xf:output>
+      <br />
+      <br />
+      <xf:output ref="instance('test-data')/employee/@job">
+        <xf:label>Job title:</xf:label>
+      </xf:output>
+
+      <hr/>
+
+      <h2>JavaScript:</h2>
+      <h3>Read data:</h3>
+      <h4>- Read nodes:</h4>
+      <div class="toolbar">
+        <span>Reading data from "instance('test-data')/employee/firstname" and "instance('test-data')/employee/lastname":</span>
+        <button type="button" onclick="document.getElementById('read-nodes-output').innerText = 'selector:\n' + XX.toString(XX.selectNodes('test-data', 'employee firstname, employee lastname'))">Read using a selector</button>
+        <button type="button" onclick="document.getElementById('read-nodes-output').innerText = 'xpath:\n' + XX.toString(XX.getNodes('test-data', 'employee/*[self::firstname | self::lastname]'))">Read using XPath</button>
+      </div>
+      <pre id="read-nodes-output">&#160;</pre>
+      <h4>- Read first node only:</h4>
+      <div class="toolbar">
+        <span>Reading data from "instance('test-data')/employee/firstname" and "instance('test-data')/employee/lastname":</span>
+        <button type="button" onclick="document.getElementById('read-node-output').innerText = 'selector:\n' + XX.toString(XX.selectNode('test-data', 'employee firstname, employee lastname'))">Read using a selector</button>
+        <button type="button" onclick="document.getElementById('read-node-output').innerText = 'xpath:\n' + XX.toString(XX.getNode('test-data', 'employee/*[self::firstname | self::lastname]'))">Read using XPath</button>
+      </div>
+      <pre id="read-node-output">&#160;</pre>
+      <h4>- Read attributes:</h4>
+      <div class="toolbar">
+        <span>Reading data from "instance('test-data')/employee/@job":</span>
+        <button type="button" onclick="document.getElementById('read-attribute-output').innerText = 'xpath:\n' + XX.toString(XX.getNodes('test-data', 'employee/@job'))">Read using XPath</button>
+      </div>
+      <pre id="read-attribute-output">&#160;</pre>
+
+      <h3>Write data:</h3>
+      <div>
+        <label for="write-input">New firstname:</label>
+        <input type="text" id="write-firstname-input" />
+        <button type="button" onclick="XX.write('test-data', '/employee/firstname', document.getElementById('write-firstname-input').value)">Write</button>
+      </div>
+      <div>
+        <label for="write-input">New lastname:</label>
+        <input type="text" id="write-lastname-input" />
+        <button type="button" onclick="XX.write('test-data', '/employee/lastname', document.getElementById('write-lastname-input').value)">Write</button>
+      </div>
+      <div>
+        <label for="write-input">New job:</label>
+        <input type="text" id="write-job-input" />
+        <button type="button" onclick="XX.write('test-data', '/employee/@job', document.getElementById('write-job-input').value)">Write</button>
+      </div>
+      
+      <h3>Reactive output:</h3>
+      <b>Value of "instance('test-data')/employee/firstname/text()":</b>
+      <pre id="reactive-text-output">&#160;</pre>
+      <b>Value of "instance('test-data')/employee/@job":</b>
+      <pre id="reactive-attribute-output">&#160;</pre>
+      <b>Node "instance('test-data')/employee":</b>
+      <pre id="reactive-node-output">&#160;</pre>
+
+      <xx:code lang="js"><![CDATA[// read
+XX.selectNodes('model-name', 'instance-name', 'xpath');
+XX.selectNodes('instance-name', 'xpath');
+XX.selectNodes('xpath');
+
+// write
+XX.write('model-name', 'instance-name', 'xpath', value);
+XX.write('instance-name', 'xpath', value);
+XX.write('xpath', value);
+
+// track changes
+XX.track('xpath', function(nodes, initialValue) { ... });
+]]></xx:code>
+      <br />
+      <br />
+      <b>Log:</b>
+      <pre id="reactive-comment">&#160;</pre>
+    </div>
+    <script>
+      xx.ready(function() {
+        xx.track('/employee/firstname/text()', function(nodes, initial) {
+          value = nodes[0]?.textContent ?? '';
+          document.getElementById('reactive-text-output').innerText = value;
+          document.getElementById('reactive-comment').innerText = '"/employee/firstname/text()" ' + (initial ? 'initial' : 'new') + ' value: ' + value + '\n' + document.getElementById('reactive-comment').innerText;
+        });
+        xx.track('/employee/@job', function(nodes, initial) {
+          value = nodes[0]?.textContent ?? '';
+          document.getElementById('reactive-attribute-output').innerText = value;
+          document.getElementById('reactive-comment').innerText = '"/employee/@job" ' + (initial ? 'initial' : 'new') + ' value: ' + value + '\n' + document.getElementById('reactive-comment').innerText;
+        });
+        xx.track('/employee', function(nodes, initial) {
+          node = nodes[0] ?? '';
+          document.getElementById('reactive-node-output').innerText = (initial ? 'initial' : 'new') + ' value:\n\n' + (node === '' ? '' : xx.toString(node));
+        });
+      });
+    </script>
+  </body>
+</html>  

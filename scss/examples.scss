@@ -1,0 +1,20 @@
+@use 'colors' as *;
+body {
+  background-color: var(--page-bg);
+}
+.card {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+  margin: 1em;
+  padding: 1em;
+}
+pre {
+  color: var(--page-bg);
+  background-color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  box-shadow: 0 1px 1px var(--shadow-color);
+  padding: 1em;
+}

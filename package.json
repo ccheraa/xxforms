@@ -1,0 +1,18 @@
+{
+  "name": "xxforms",
+  "scripts": {
+    "css": "sass --watch --style=compressed --source-map --embed-sources scss/xx-forms.scss static/xx-forms.css",
+    "js": "bun build src/client/xx-forms.ts --outdir=static --sourcemap --watch --no-clear-screen --minify",
+    "server": "bun run --watch --no-clear-screen src/server/index.ts",
+    "dev": "concurrently --n --c cyan,yellow,green \"bun:css\" \"bun:js\" \"bun:server\""
+  },
+  "dependencies": {
+    "@hono/node-server": "^1.13.8",
+    "hono": "^4.7.4"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "concurrently": "^9.1.2",
+    "sass": "^1.85.1"
+  }
+}

@@ -1,0 +1,7 @@
+# deps
+node_modules/
+scss/temp/*
+static/*.css
+static/*.js
+static/*.map
+static/dist

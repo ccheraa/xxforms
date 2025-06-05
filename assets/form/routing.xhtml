@@ -1,0 +1,324 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events"
+  xmlns:xx='http://www.xxforms.org/2025/xxforms' xmlns:xf="http://www.w3.org/2002/xforms">
+
+<head>
+  <title>Client-side routing</title>
+  <xf:model id="main">
+    <xf:instance id="test-data">
+      <data xmlns="">
+        <appData>
+          <clients>
+            <client id="C001">
+              <name>Acme Corporation</name>
+              <contactPerson>John Doe</contactPerson>
+              <email>john.doe@acmecorp.com</email>
+              <phone>+1-555-123-4567</phone>
+              <address>
+                <street>123 Business Rd</street>
+                <city>Techville</city>
+                <state>CA</state>
+                <zip>90210</zip>
+                <country>USA</country>
+              </address>
+            </client>
+            <client id="C002">
+              <name>Global Solutions Inc.</name>
+              <contactPerson>Jane Smith</contactPerson>
+              <email>jane.smith@globalsolutions.net</email>
+              <phone>+44-20-7946-0123</phone>
+              <address>
+                <street>Unit 5, Innovation Hub</street>
+                <city>London</city>
+                <state>England</state>
+                <zip>SW1A 0AA</zip>
+                <country>UK</country>
+              </address>
+            </client>
+            <client id="C003">
+              <name>Future Enterprises</name>
+              <contactPerson>Mohammed Al-Farsi</contactPerson>
+              <email>mohammed.farsi@future.om</email>
+              <phone>+968-99123456</phone>
+              <address>
+                <street>Sultan Qaboos Street</street>
+                <city>Muscat</city>
+                <state>Muscat Governorate</state>
+                <zip>113</zip>
+                <country>Oman</country>
+              </address>
+            </client>
+          </clients>
+
+          <products>
+            <product id="P001">
+              <name>Premium Software Suite</name>
+              <description>Comprehensive business management software.</description>
+              <price>499.99</price>
+              <currency>USD</currency>
+              <stock>150</stock>
+            </product>
+            <product id="P002">
+              <name>Enterprise Cloud Storage</name>
+              <description>Scalable cloud storage solution for large organizations.</description>
+              <price>99.99</price>
+              <currency>USD</currency>
+              <unit>per TB/month</unit>
+              <stock>Unlimited</stock>
+            </product>
+            <product id="P003">
+              <name>Consulting Services</name>
+              <description>Expert consultation on IT infrastructure and strategy.</description>
+              <price>150.00</price>
+              <currency>USD</currency>
+              <unit>per hour</unit>
+              <stock>N/A</stock>
+            </product>
+          </products>
+
+          <sales>
+            <sale id="S001">
+              <clientId>C001</clientId>
+              <date>2024-05-10</date>
+              <totalAmount>899.98</totalAmount>
+              <currency>USD</currency>
+              <items>
+                <item productId="P001" quantity="2" priceAtSale="449.99" />
+              </items>
+            </sale>
+            <sale id="S002">
+              <clientId>C002</clientId>
+              <date>2024-05-15</date>
+              <totalAmount>449.98</totalAmount>
+              <currency>USD</currency>
+              <items>
+                <item productId="P002" quantity="2" priceAtSale="99.99" />
+                <item productId="P003" quantity="1" priceAtSale="150.00" />
+              </items>
+            </sale>
+            <sale id="S003">
+              <clientId>C001</clientId>
+              <date>2024-05-20</date>
+              <totalAmount>699.98</totalAmount>
+              <currency>USD</currency>
+              <items>
+                <item productId="P003" quantity="2" priceAtSale="150.00" />
+                <item productId="P002" quantity="1" priceAtSale="99.99" />
+                <item productId="P001" quantity="1" priceAtSale="449.99" />
+              </items>
+            </sale>
+            <sale id="S004">
+              <clientId>C003</clientId>
+              <date>2024-06-05</date>
+              <totalAmount>499.99</totalAmount>
+              <currency>USD</currency>
+              <items>
+                <item productId="P001" quantity="1" priceAtSale="499.99" />
+              </items>
+            </sale>
+          </sales>
+        </appData>
+        <current-route>/</current-route>
+        <current-page>/</current-page>
+        <current-id/>
+      </data>
+    </xf:instance>
+    <xf:action ev:event="xx-route-changed">
+      <xf:setvalue ref="instance('test-data')/current-route" value="event('route')"/>
+      <xf:setvalue ref="instance('test-data')/current-page" value="replace(event('route'), '^\\/([^/]+)(\\/.*)?$', '$1')"/>
+      <xf:setvalue ref="instance('test-data')/current-id" value="if(contains(substring-after(event('route'), '/'), '/'), replace(event('route'), '^\\/[^/]+\\/(.*)$', '$1'), '')"/>
+    </xf:action>
+  </xf:model>
+  <style>
+    .navbar {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 1em;
+    }
+    .navbar a {
+      padding: 5px 10px;
+      display: inline-block;
+    }
+    .items-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .items-table th,
+    .items-table td {
+      border: 1px solid var(--border-color);
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: var(--primary-accent);
+      color: var(--page-bg);
+    }
+    .right {
+      text-align: right !important;
+    }
+    dl {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 10px;
+    }
+    dl dt {
+      text-align: right;
+    }
+    dl dd {
+      margin-left: 0px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Routing</h1>
+
+  <div class="card">
+    <xf:trigger>
+      <xf:label>Go to first sale</xf:label>
+      <xx:go-to route="concat('/sales/', instance('test-data')/appData/sales/sale[1]/@id)" ev:event="DOMActivate" />
+    </xf:trigger>&#160;&#160;&#160;
+    <b>Current route: </b><xf:output value="instance('test-data')/current-route"/>
+    <hr/>
+    <div class="navbar">
+      <xx:link route="'/'">Home</xx:link>
+      <xx:link route="'/clients'">Clients</xx:link>
+      <xx:link route="'/products'">Products</xx:link>
+      <xx:link route="'/sales'">Sales</xx:link>
+    </div>
+    <xf:group ref=".[instance('test-data')/current-page = 'clients' and instance('test-data')/current-id = '']">
+      <h2>Client List</h2>
+      <ul>
+        <xf:repeat nodeset="instance('test-data')/appData/clients/client" id="clients">
+          <li>
+            <xx:link route="concat('/clients/', instance('test-data')/appData/clients/client[index('clients')]/@id)">
+              <xf:output value="name"/>
+            </xx:link>
+          </li>
+        </xf:repeat>
+      </ul>
+    </xf:group>
+    <xf:group ref="instance('test-data')/appData/clients/client[@id = instance('test-data')/current-id]">
+      <xx:link route="'/clients'">Back to clients</xx:link>
+      <h2>Client: <xf:output value="name"/></h2>
+        <dl>
+          <dt>Id</dt>
+          <dd><xf:output value="@id"/></dd>
+          <dt>Contact Person</dt>
+          <dd><xf:output value="contactPerson"/></dd>
+          <dt>Email</dt>
+          <dd><xf:output value="email"/></dd>
+          <dt>Phone</dt>
+          <dd><xf:output value="phone"/></dd>
+          <dt>Address</dt>
+          <dd><xf:output value="address"/></dd>
+        </dl>
+    </xf:group>
+    <xf:group ref=".[instance('test-data')/current-page = 'products' and instance('test-data')/current-id = '']">
+      <h2>Product List</h2>
+      <ul>
+        <xf:repeat nodeset="instance('test-data')/appData/products/product" id="products">
+          <li>
+            <xx:link route="concat('/products/', instance('test-data')/appData/products/product[index('products')]/@id)">
+              <xf:output value="name"/>
+            </xx:link>
+          </li>
+        </xf:repeat>
+      </ul>
+    </xf:group>
+    <xf:group ref="instance('test-data')/appData/products/product[@id = instance('test-data')/current-id]">
+      <xx:link route="'/products'">Back to products</xx:link>
+      <h2>Product: <xf:output value="name"/></h2>
+      <dl>
+        <dt>Id</dt>
+        <dd><xf:output value="@id"/></dd>
+        <dt>Description</dt>
+        <dd><xf:output value="description"/></dd>
+        <dt>Price</dt>
+        <dd><xf:output value="price"/></dd>
+        <dt>Currency</dt>
+        <dd><xf:output value="currency"/></dd>
+        <dt>Stock</dt>
+        <dd><xf:output value="stock"/></dd>
+      </dl>
+    </xf:group>
+    <xf:group ref=".[instance('test-data')/current-page = 'sales' and instance('test-data')/current-id = '']">
+      <h2>Sales List</h2>
+      <ul>
+        <xf:repeat nodeset="instance('test-data')/appData/sales/sale" id="sales">
+          <li>
+            <xx:link route="concat('/sales/', instance('test-data')/appData/sales/sale[index('sales')]/@id)">
+              <xf:output value="date"/>: <xf:output value="totalAmount"/> <xf:output value="currency"/> to <xf:output ref="clientId"/>
+            </xx:link>
+          </li>
+        </xf:repeat>
+      </ul>
+    </xf:group>
+    <xf:group ref="instance('test-data')/appData/sales/sale[@id = instance('test-data')/current-id]">
+      <xx:link route="'/sales'">Back to sales</xx:link>
+      <h2>Sale #<xf:output value="@id"/></h2>
+      <dl>
+        <dt>Client</dt>
+        <dd><xf:output value="instance('test-data')/appData/clients/client[@id = instance('test-data')/appData/sales/sale[@id = instance('test-data')/current-id]/clientId]/name"/></dd>
+        <dt>Date</dt>
+        <dd><xf:output value="date"/></dd>
+        <dt>Total Amount</dt>
+        <dd><xf:output value="totalAmount"/></dd>
+        <dt>Currency</dt>
+        <dd><xf:output value="currency"/></dd>
+      </dl>
+      <table class="items-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>ID</th>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <xf:repeat nodeset="instance('test-data')/appData/sales/sale[@id = instance('test-data')/current-id]/items/item" id="items">
+            <tr>
+              <td><xf:output value="position()"/></td>
+              <td><xf:output value="@productId"/></td>
+              <td><xf:output value="instance('test-data')/appData/products/product[@id = instance('test-data')/appData/sales/sale[@id = instance('test-data')/current-id]/items/item[index('items')]/@productId]/name"/></td>
+              <td class="right"><xf:output value="@quantity"/></td>
+              <td class="right"><xf:output value="@priceAtSale"/>&#160;<xf:output value="instance('test-data')/appData/sales/sale[@id = instance('test-data')/current-id]/currency"/></td>
+            </tr>
+          </xf:repeat>
+        </tbody>
+        <tfoot>
+          <tr>
+            <th colspan="3"/>
+            <th>Total</th>
+            <th class="right"><xf:output value="totalAmount"/>&#160;<xf:output value="currency"/></th>
+          </tr></tfoot>
+      </table>
+    </xf:group>
+    <xf:group ref=".[instance('test-data')/current-route = '/']">
+      <h2>Home</h2>
+      <p>Navigate to one of these pages:</p>
+      <ul>
+        <li><xx:link route="'/'">Home</xx:link></li>
+        <li><xx:link route="'/clients'">Clients</xx:link></li>
+        <li><xx:link route="'/products'">Products</xx:link></li>
+        <li><xx:link route="'/sales'">Sales</xx:link></li>
+      </ul>
+    </xf:group>
+  </div>
+
+  <h2>Link:</h2>
+  <xx:code lang="xml"><![CDATA[<xx:link route="/test-route">Test Route</xx:link>]]></xx:code>
+
+  <h2>Current value:</h2>
+  <xx:code lang="xml"><![CDATA[<xf:output value="instance('xxforms')/route" />]]></xx:code>
+
+  <h2>Navigate to:</h2>
+  <xx:code lang="xml"><![CDATA[<xx:go-to route="'/test-route'" ev:event="DOMActivate" />]]></xx:code>
+
+  <h2>Route changed event:</h2>
+  <xx:code lang="xml"><![CDATA[<xf:load resource="javascript:alert('new route: {event('route')}')" ev:event="xx-route-changed" />]]></xx:code>
+</body>
+
+</html>

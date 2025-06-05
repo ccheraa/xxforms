@@ -1,0 +1,80 @@
+@use 'colors' as *;
+@use 'ui' as ui;
+
+table.xsltforms-calendar {
+  background-color: var(--card-bg);
+  color: var(--text-primary);
+  border-collapse: collapse;
+  border: 1px solid var(--border-color);
+  padding: 0;
+  box-shadow: 4px 4px 4px var(--shadow-color);
+
+  tbody {
+    cursor: pointer;
+  }
+
+  td {
+    padding: 2px 3px !important;
+
+    &.xsltforms-calendar-title {
+      background: var(--panel-bg);
+      padding: 0 !important;
+      border: none !important;
+  
+      select,
+      input {
+        @include ui.input;
+        cursor: pointer;
+        background: var(--input-bg);
+        line-height: 16px;
+        border: none !important;
+      }
+      
+      button {
+        @include ui.button;
+        padding-block: 0;
+        line-height: 18px;
+        border: none !important;
+        background-color: var(--error-color);
+      }
+
+      ul.xsltforms-calendarList {
+        background-color: var(--card-bg);
+        color: var(--text-primary);
+        border: 1px solid var(--border-color);
+        box-shadow: 4px 4px 4px var(--shadow-color);
+        li {
+          cursor: pointer;
+          padding: 2px;
+          &.xsltforms-listHover {
+            background-color: var(--primary-accent);
+            border: none;
+            width: auto;
+          }
+        }
+      }
+    }
+
+    &.xsltforms-calendar-name {
+      background-color: var(--control-bg);
+    }
+
+    &.xsltforms-calendar-weekend {
+      color: var(--primary-accent);
+      &.xsltforms-listHover {
+        color: var(--text-primary);
+      }
+    }
+
+    &.xsltforms-calendar-selected {
+      background-color: var(--secondary-accent);
+      color: var(--card-bg);
+      border: none;
+    }
+
+    &.xsltforms-listHover {
+      background-color: var(--primary-accent);
+      border: none;
+    }
+  }
+}

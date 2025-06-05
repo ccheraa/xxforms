@@ -1,0 +1,195 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:ev="http://www.w3.org/2001/xml-events"
+  xmlns:xx='http://www.xxforms.org/2025/xxforms'
+  xmlns:xf="http://www.w3.org/2002/xforms"
+>
+  <head>
+    <title>Menus</title>
+    <xf:model id="main">
+      <xf:instance id="test-data">
+        <data xmlns="">
+        </data>
+      </xf:instance>
+      <xf:load resource="javascript:alert('changed')" ev:event="xx-tab-changed" />
+      </xf:model>
+      <style>
+        body {
+          padding-top: 50px;
+        }
+        .menu-bar-container {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+        }
+        .menu-bar-container > * {
+          width: 100%;
+        }
+        
+        .xx-menu-trigger {
+          border: 1px solid black;
+          padding: 1em;
+          border-radius: 1em;
+        }
+      </style>
+  </head>
+  <body>
+    <h1>Menus</h1>
+
+    <div class="card">
+      <h2>Menu bar (check the top of the page)</h2>
+      <div class="menu-bar-container">
+        <xx:menu id="test-menu-bar" bar="true">
+          <xx:menu>
+            <xx:menu-label>File</xx:menu-label>
+            <xf:trigger>
+              <xf:label>New</xf:label>
+              <xf:load resource="javascript:alert('&#34;New&#34; menu-item selected')" ev:event="DOMActivate" />
+            </xf:trigger>
+            <xf:trigger>
+              <xf:label>Open</xf:label>
+              <xf:load resource="javascript:alert('&#34;Open&#34; menu-item selected')" ev:event="DOMActivate" />
+            </xf:trigger>
+            <xf:trigger>
+              <xf:label>Save</xf:label>
+              <xf:load resource="javascript:alert('&#34;Save&#34; menu-item selected')" ev:event="DOMActivate" />
+            </xf:trigger>
+            <xf:trigger>
+              <xf:label>Save As</xf:label>
+              <xf:load resource="javascript:alert('&#34;Save As&#34; menu-item selected')" ev:event="DOMActivate" />
+            </xf:trigger>
+            <xx:separator />
+            <xf:trigger>
+              <xf:label>Exit</xf:label>
+              <xf:load resource="javascript:alert('&#34;Exit&#34; menu-item selected')" ev:event="DOMActivate" />
+            </xf:trigger>
+          </xx:menu>
+          <xx:menu>
+            <xx:menu-label>Edit</xx:menu-label>
+            <xf:trigger>
+              <xf:label>Cut</xf:label>
+              <xf:load resource="javascript:alert('&#34;Cut&#34; menu-item selected')" ev:event="DOMActivate" />
+            </xf:trigger>
+            <xf:trigger>
+              <xf:label>Copy</xf:label>
+              <xf:load resource="javascript:alert('&#34;Copy&#34; menu-item selected')" ev:event="DOMActivate" />
+            </xf:trigger>
+            <xf:trigger>
+              <xf:label>Paste</xf:label>
+              <xf:load resource="javascript:alert('&#34;Paste&#34; menu-item selected')" ev:event="DOMActivate" />
+            </xf:trigger>
+            <xx:separator />
+            <xf:trigger>
+              <xf:label>Preferences</xf:label>
+              <xf:load resource="javascript:alert('&#34;Preferences&#34; menu-item selected')" ev:event="DOMActivate" />
+            </xf:trigger>
+          </xx:menu>
+          <xx:menu>
+            <xx:menu-label>Help</xx:menu-label>
+            <xf:trigger>
+              <xf:label>Index</xf:label>
+              <xf:load resource="javascript:alert('&#34;Index&#34; menu-item selected')" ev:event="DOMActivate" />
+            </xf:trigger>
+            <xx:separator />
+            <xx:menu>
+              <xx:menu-label>Other</xx:menu-label>
+              <xf:trigger>
+                <xf:label>Test</xf:label>
+                <xf:load resource="javascript:alert('&#34;Test&#34; menu-item selected')" ev:event="DOMActivate" />
+              </xf:trigger>
+              <xf:trigger>
+                <xf:label>Another test</xf:label>
+                <xf:load resource="javascript:alert('&#34;Another test&#34; menu-item selected')" ev:event="DOMActivate" />
+              </xf:trigger>
+              <xx:menu>
+                <xx:menu-label>More</xx:menu-label>
+                <xf:trigger>
+                  <xf:label>More tests</xf:label>
+                  <xf:load resource="javascript:alert('&#34;More tests&#34; menu-item selected')" ev:event="DOMActivate" />
+                </xf:trigger>
+                <xx:separator />
+                <xf:trigger>
+                  <xf:label>And more</xf:label>
+                  <xf:load resource="javascript:alert('&#34;And more&#34; menu-item selected')" ev:event="DOMActivate" />
+                </xf:trigger>
+              </xx:menu>
+            </xx:menu>
+            <xf:trigger>
+              <xf:label>About</xf:label>
+              <xf:load resource="javascript:alert('&#34;About&#34; menu-item selected')" ev:event="DOMActivate" />
+            </xf:trigger>
+          </xx:menu>
+        </xx:menu>
+      </div>
+      <xx:code lang="xml"><![CDATA[<xx:menu id="menu-id" bar="true">
+  <xx:menu>
+    <xx:menu-label>Menu Item</xx:menu-label>
+    <xf:trigger><xf:label>Sub-Menu Item Label</xf:label></xf:trigger>
+    ...
+  </xx:menu>
+  ...
+</xx:menu>
+]]></xx:code>
+      <br/>
+      <h2>Context Menu</h2>
+      <xx:menu id="context-menu">
+        <xf:trigger>
+          <xf:label>Menu Item #1</xf:label>
+          <xf:load resource="javascript:alert('menu item 1 selected')" ev:event="DOMActivate" />
+        </xf:trigger>
+        <xf:trigger>
+          <xf:label>Menu Item #2</xf:label>
+          <xf:load resource="javascript:alert('menu item 2 selected')" ev:event="DOMActivate" />
+        </xf:trigger>
+        <xf:trigger>
+          <xf:label>Menu Item #3</xf:label>
+          <xf:load resource="javascript:alert('menu item 3 selected')" ev:event="DOMActivate" />
+        </xf:trigger>
+        <xx:separator />
+        <xx:menu>
+          <xx:menu-label>Menu Item #4 (with sub-items)</xx:menu-label>
+          <xf:trigger>
+            <xf:label>Menu Item #4.1</xf:label>
+            <xf:load resource="javascript:alert('menu item 4.1 selected')" ev:event="DOMActivate" />
+          </xf:trigger>
+          <xf:trigger>
+            <xf:label>Menu Item #4.2</xf:label>
+            <xf:load resource="javascript:alert('menu item 4.2 selected')" ev:event="DOMActivate" />
+          </xf:trigger>
+          <xf:trigger>
+            <xf:label>Menu Item #4.3</xf:label>
+            <xf:load resource="javascript:alert('menu item 4.3 selected')" ev:event="DOMActivate" />
+          </xf:trigger>
+          <xx:separator />
+          <xx:menu>
+            <xx:menu-label>Menu Item #4.4</xx:menu-label>
+            <xf:trigger>
+              <xf:label>Menu Item #4.4.1</xf:label>
+              <xf:load resource="javascript:alert('menu item 4.4.1 selected')" ev:event="DOMActivate" />
+            </xf:trigger>
+            <xf:trigger>
+              <xf:label>Menu Item #4.4.2</xf:label>
+              <xf:load resource="javascript:alert('menu item 4.4.2 selected')" ev:event="DOMActivate" />
+            </xf:trigger>
+            <xf:trigger>
+              <xf:label>Menu Item #4.4.3</xf:label>
+              <xf:load resource="javascript:alert('menu item 4.4.3 selected')" ev:event="DOMActivate" />
+            </xf:trigger>
+          </xx:menu>
+        </xx:menu>
+        <xx:separator />
+        <xf:trigger>
+          <xf:label>Menu Item #5</xf:label>
+          <xf:load resource="javascript:alert('menu item 5 selected')" ev:event="DOMActivate" />
+        </xf:trigger>
+      </xx:menu>
+      <xx:menu-trigger for="context-menu">
+        <p>Right click to open the menu</p>
+      </xx:menu-trigger>
+      <xx:code lang="xml"><![CDATA[<xx:menu id="context-menu-id">...</xx:menu>
+<xx:menu-trigger for="context-menu-id">...</xx:menu-trigger>
+]]></xx:code>
+      <br/>
+    </div>
+  </body>
+</html>

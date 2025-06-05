@@ -1,0 +1,135 @@
+@use 'colors' as *;
+// general
+
+* {
+  scrollbar-color: var(--control-bg-dark) var(--page-bg);
+}
+
+@mixin input {
+  --input-text: var(--text-primary);
+  --input-border-color: var(--border-color);
+  --input-border-width: 1px;
+  --input-border-style: solid;
+  background-color: var(--input-bg);
+  border-color: var(--input-border-color);
+  border-width: var(--input-border-width);
+  border-style: var(--input-border-style);
+  color: var(--input-text);
+}
+
+input:not([type=file]):not([type=range]):not([type=checkbox]):not([type=radio]),
+select,
+select option,
+textarea {
+  @include input;
+}
+
+button.xsltforms-aid-button {
+  min-width: 22px;
+}
+
+@mixin button {
+  --button-bg: var(--control-bg);
+  --button-bg-hover: var(--control-bg-light);
+  --button-bg-active: var(--page-bg);
+  --button-text: var(--text-primary);
+  --button-text-hover: var(--text-primary);
+  --button-text-active: var(--text-primary);
+  --button-border-color: var(--border-color);
+  --button-border-width: 1px;
+  --button-border-style: solid;
+  background-color: var(--button-bg);
+  border-color: var(--button-border-color);
+  border-width: var(--button-border-width);
+  border-style: var(--button-border-style);
+  color: var(--button-text);
+  cursor: pointer;
+  font-size: 1em;
+  padding: 0.2em 0.5em;
+  xforms-label {
+    font-weight: inherit;
+  }
+  &:hover {
+    background-color: var(--button-bg-hover);
+    color: var(--button-text-hover);
+  }
+  &:active,
+  &.xx-active,
+  xforms-trigger.xx-active > xforms-body > & {
+    background-color: var(--button-bg-active);
+    color: var(--button-text-active);
+  }
+  &:focus {
+    box-shadow: 0 0 0 1px var(--button-border-color) inset;
+    outline: none;
+  }
+}
+
+button,
+// button.xx-button,
+input[type="button"],
+input[type="submit"],
+input[type="reset"] {
+  @include button;
+}
+
+input::file-selector-button {
+  @include button;
+}
+
+xforms-range {
+  xforms-range-rail {
+    background-color: var(--control-bg);
+    border-color: var(--border-color);
+    xforms-range-cursor {
+      background: var(--control-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 50%;
+    }
+  }
+}
+
+xforms-input {
+  xforms-body {
+    display: inline-flex;
+    align-items: stretch;
+  }
+}
+
+xforms-help {
+  background-color: var(--page-bg);
+}
+
+xforms-hint {
+  background-color: var(--tooltip-bg);
+  color: var(--tooltip-text);
+}
+
+dialog {
+  background-color: var(--page-bg);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  box-shadow: 4px 4px 4px;
+}
+xforms-dialog-surround {
+  background-color: var(--shadow-color);
+  backdrop-filter: blur(4px);
+  opacity: 1;
+}
+
+code {
+  display: block !important;
+  margin: 1rem !important;
+  border: 1px solid var(--border-color);
+  padding: 1rem 1rem !important;
+  overflow: auto;
+}
+
+dialog {
+  top: 50% !important;
+  left: 50% !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  margin: 0 !important;
+  transform: translate(-50%, -50%) !important;
+}

@@ -1,0 +1,140 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:ev="http://www.w3.org/2001/xml-events"
+  xmlns:xf="http://www.w3.org/2002/xforms"
+>
+  <head>
+    <title>XForms Controls</title>
+    <xf:model xmlns="http://www.w3.org/2002/xforms">
+      <xf:instance id="test-data">
+        <data>
+          <text>This is a sample text value.</text>
+          <with-label>This is another sample text value.</with-label>
+          <number>
+            <a>3</a>
+            <b>0.1415</b>
+          </number>
+          <date>2000-01-01</date>
+          <image url="/res/img.svg" />
+          <file />
+          <list>
+            <selected>v1</selected>
+            <selected-many>v1</selected-many>
+            <items>
+              <item id="v1">Value 1</item>
+              <item id="v2">Value 2</item>
+              <item id="v3">Value 3</item>
+              <item id="v4">Value 4</item>
+              <item id="v5">Value 5</item>
+              <item id="v6">Value 6</item>
+              <item id="v7">Value 7</item>
+              <item id="v8">Value 8</item>
+              <item id="v9">Value 9</item>
+              <item id="v10">Value 10</item>
+            </items>
+          </list>
+        </data>
+      </xf:instance>
+      <xf:bind ref="instance('test-data')/date" type="date" />
+    </xf:model>
+  </head>
+  <body>
+    <h1>XForms Controls</h1>
+    <p>This is a list of basic XForms controls</p>
+    
+    <h2>Output:</h2>
+    <div class="card">
+      <h3>Text:</h3>
+      <xf:output ref="instance('test-data')/text" />
+
+      <h3>Text with label:</h3>
+      <xf:output ref="instance('test-data')/with-label">
+        <xf:label>Label:</xf:label>
+      </xf:output>
+
+      <h3>Number:</h3>
+      <xf:output value="instance('test-data')/number/a + instance('test-data')/number/b">
+        <xf:label>Pi is:</xf:label>
+      </xf:output>
+
+      <h3>Image:</h3>
+      <xf:output ref="instance('test-data')/image/@url" mediatype="image/*">
+        <xf:label>Pi is:</xf:label>
+      </xf:output>
+    </div>
+
+    <h2>Input:</h2>
+    <div class="card">
+      <h3>Text:</h3>
+      <xf:input ref="instance('test-data')/text" />
+
+      <h3>Text with label and hint:</h3>
+      <xf:input ref="instance('test-data')/with-label" alert="This is an alert">
+        <xf:label>Text input:</xf:label>
+        <xf:hint>There is a hint here</xf:hint>
+        <xf:help>There is help here</xf:help>
+        <!-- <xf:alert>This is an alert</xf:alert> -->
+      </xf:input>
+
+      <h3>Date:</h3>
+      <xf:input ref="instance('test-data')/date" />
+
+      <h3>Password:</h3>
+      <xf:secret ref="instance('test-data')/text" />
+
+      <h3>Textarea:</h3>
+      <xf:textarea ref="instance('test-data')/text" />
+
+      <h3>File selector:</h3>
+      <xf:upload ref="instance('test-data')/file" />
+
+      <h3>Range:</h3>
+      <xf:range ref="instance('test-data')/number/a" start="0" end="10" step="0.5" />
+
+      <h3>Select (<xf:output ref="instance('test-data')/list/selected" />):</h3>
+      <xf:select1 ref="instance('test-data')/list/selected">
+        <xf:item>
+          <xf:label>Value 1</xf:label>
+          <xf:value>v1</xf:value>
+        </xf:item>
+        <xf:item>
+          <xf:label>Value 2</xf:label>
+          <xf:value>v2</xf:value>
+        </xf:item>
+        <xf:item>
+          <xf:label>Value 3</xf:label>
+          <xf:value>v3</xf:value>
+        </xf:item>
+      </xf:select1>
+
+      <h3>Multi-select (<xf:output ref="instance('test-data')/list/selected-many" />):</h3>
+      <xf:select ref="instance('test-data')/list/selected-many">
+        <xf:itemset nodeset="instance('test-data')/list/items/item">
+          <xf:label ref="."/>
+          <xf:value ref="@id"/>
+        </xf:itemset>
+      </xf:select>
+    </div>
+
+    <h2>Control:</h2>
+    <div class="card">
+      <h3>Button:</h3>
+      <xf:trigger>
+        <xf:label>Click me</xf:label>
+        <xf:load resource="javascript:alert('Clicked!')" ev:event="DOMActivate" />
+      </xf:trigger>
+      
+      <h3>Dialog:</h3>
+      <xf:trigger>
+        <xf:label>Open dialog</xf:label>
+        <xf:show dialog="test-dialog" ev:event="DOMActivate" />
+      </xf:trigger>
+      <dialog id="test-dialog" label="Please enter your information">
+        <p>This is a sample dialog.</p>
+        <xf:trigger>
+          <xf:label>Close</xf:label>
+          <xf:hide ev:event="DOMActivate" dialog="test-dialog"/>
+        </xf:trigger>
+      </dialog>
+    </div>
+  </body>
+</html>  

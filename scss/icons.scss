@@ -1,0 +1,156 @@
+@use 'colors' as *;
+// icons
+.xx-icon {
+  width: 1em;
+  height: 1em;
+  line-height: 1em;
+  display: inline-block;
+  &.xx-rotate-90 {
+    transform: rotate(90deg);
+  }
+  &.xx-rotate-180 {
+    transform: rotate(180deg);
+  }
+  &.xx-rotate-270 {
+    transform: rotate(270deg);
+  }
+  &.xx-mirror-h {
+    transform: scale(-1, 1);
+  }
+  &.xx-mirror-v {
+    transform: scale(1, -1);
+  }
+
+  &.xx-jello {
+    animation: xx-jello 0.5s infinite;
+  }
+  &.xx-spin {
+    animation: xx-spin 1s infinite linear;
+  }
+  &.xx-spin-alt {
+    animation: xx-spin-alt 1s infinite ease;
+  }
+  &.xx-pulse {
+    animation: xx-pulse 1s infinite ease-in-out alternate;
+  }
+  &.xx-flash {
+    animation: xx-flash 500ms ease infinite alternate;
+  }
+  &.xx-wobble {
+    animation: xx-wobble 1s ease infinite;
+  }
+  &.xx-bounce {
+    animation: xx-bounce 2s ease infinite;
+  }
+  &.xx-shake {
+    animation: xx-shake 2s ease infinite;
+  }
+  &.xx-flip-h {
+    backface-visibility: visible !important;
+    animation: xx-flip-h 2s ease infinite;
+  }
+  &.xx-flip-v {
+    backface-visibility: visible !important;
+    animation: xx-flip-v 2s ease infinite;
+  }
+}
+.xx-icon-list {
+  list-style-type: none;
+  margin-left: var(--fa-li-margin, 2em);
+  padding-left: 0;
+  > li {
+    position: relative;
+    > .xx-icon {
+      position: absolute;
+      left: -1.5em;
+    }
+  }
+}
+
+@keyframes xx-jello {
+  from, to { transform: scale(1, 1); }
+  25% { transform: scale(0.9, 1.1); }
+  50% { transform: scale(1.1, 0.9); }
+  75% { transform: scale(0.95, 1.05); }
+}
+@keyframes xx-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes xx-spin-alt {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(720deg); }
+}
+@keyframes xx-pulse {
+  from { transform: scale(0.8); }
+  to { transform: scale(1.2); }
+}
+@keyframes xx-flash {
+	from { opacity: 1; }	
+	to { opacity: 0; }
+}
+@keyframes xx-wobble {
+  30% { transform: scale(1.2); }
+  40%, 60% { transform: rotate(-20deg) scale(1.2); }
+  50% { transform: rotate(20deg) scale(1.2); }
+  70% { transform: rotate(0deg) scale(1.2); }
+  100% { transform: scale(1); }
+}
+@keyframes xx-bounce {
+    70% { transform:translateY(0%); }
+    80% { transform:translateY(-15%); }
+    90% { transform:translateY(0%); }
+    95% { transform:translateY(-7%); }
+    97% { transform:translateY(0%); }
+    99% { transform:translateY(-3%); }
+    100% { transform:translateY(0); }
+}
+@keyframes xx-shake {
+	0%, 100% {transform: translateX(0);}
+	10%, 30%, 50%, 70%, 90% {transform: translateX(-10px);}
+	20%, 40%, 60%, 80% {transform: translateX(10px);}
+}
+@keyframes xx-flip-h {
+	0% {
+		transform: perspective(400px) rotateY(0);
+		animation-timing-function: ease-out;
+	}
+	40% {
+		transform: perspective(400px) rotateY(170deg);
+		animation-timing-function: ease-out;
+	}
+	50% {
+		transform: perspective(400px) rotateY(190deg);
+		animation-timing-function: ease-in;
+	}
+	80% {
+		transform: perspective(400px) rotateY(360deg);
+		animation-timing-function: ease-in;
+	}
+	100% {
+		transform: perspective(400px);
+		animation-timing-function: ease-in;
+	}
+}
+@keyframes xx-flip-v {
+	0% {
+		transform: perspective(400px) rotateX(0);
+		animation-timing-function: ease-out;
+	}
+	40% {
+		transform: perspective(400px) rotateX(170deg);
+		animation-timing-function: ease-out;
+	}
+	50% {
+		transform: perspective(400px) rotateX(190deg);
+		animation-timing-function: ease-in;
+	}
+	80% {
+		transform: perspective(400px) rotateX(360deg);
+		animation-timing-function: ease-in;
+	}
+	100% {
+		transform: perspective(400px);
+		animation-timing-function: ease-in;
+	}
+}

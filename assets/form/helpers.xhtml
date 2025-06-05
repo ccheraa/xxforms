@@ -1,0 +1,44 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:ev="http://www.w3.org/2001/xml-events"
+  xmlns:xx='http://www.xxforms.org/2025/xxforms'
+  xmlns:xf="http://www.w3.org/2002/xforms"
+>
+  <head>
+    <title>Helpers</title>
+    <xf:model id="main">
+      <xf:instance id="test-data">
+        <data xmlns="">
+        </data>
+      </xf:instance>
+      <xf:load resource="javascript:alert('changed')" ev:event="xx-tab-changed" />
+      </xf:model>
+  </head>
+  <body>
+    <h1>Helpers</h1>
+
+    <div class="card">
+      <h2>Buttons group</h2>
+      <xx:button-group>
+        <xf:trigger>
+          <xf:label>Left</xf:label>
+        </xf:trigger>
+        <xf:trigger>
+          <xf:label>Center</xf:label>
+        </xf:trigger>
+        <xf:trigger>
+          <xf:label>Stretch<br/>More</xf:label>
+        </xf:trigger>
+        <xf:trigger>
+          <xf:label>Right</xf:label>
+        </xf:trigger>
+      </xx:button-group>
+      <br/>
+      <xx:code lang="xml"><![CDATA[<xx:button-group>
+  <xf:trigger>...</xf:trigger>
+  <xf:trigger>...</xf:trigger>
+  ...
+</xx:button-group>
+]]></xx:code>
+    </div>
+  </body>
+</html>

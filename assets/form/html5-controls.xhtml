@@ -1,0 +1,32 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:ev="http://www.w3.org/2001/xml-events"
+  xmlns:xx='http://www.xxforms.org/2025/xxforms'
+  xmlns:xf="http://www.w3.org/2002/xforms"
+>
+  <head>
+    <title>HTML5 Controls</title>
+    <xf:model xmlns="http://www.w3.org/2002/xforms">
+      <xf:instance id="test-data">
+        <data>
+          <music>/res/media/music.mp3</music>
+          <video>/res/media/video.mp4</video>
+        </data>
+      </xf:instance>
+    </xf:model>
+  </head>
+  <body>
+    <h1>HTML5 Controls</h1>
+    <p>This is a list of basic HTML5 controls</p>
+    
+    <h2>Media:</h2>
+    <div class="card">
+      <h3>Audio:</h3>
+      <xx:audio src="instance('test-data')/music" />
+      <xx:code lang="xml"><![CDATA[<xx:audio src="instance('test-data')/music" />]]></xx:code>
+
+      <h3>Video:</h3>
+      <xx:video src="instance('test-data')/video" />
+      <xx:code lang="xml"><![CDATA[<xx:video src="instance('test-data')/video" />]]></xx:code>
+    </div>
+  </body>
+</html>  

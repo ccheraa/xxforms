@@ -1,0 +1,95 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:ev="http://www.w3.org/2001/xml-events"
+  xmlns:xx='http://www.xxforms.org/2025/xxforms'
+  xmlns:xf="http://www.w3.org/2002/xforms"
+>
+  <head>
+    <title>Tabs</title>
+    <xf:model id="main">
+      <xf:instance id="test-data">
+        <data xmlns="">
+          <tabs>
+            <tab tab-index="1">Tab 1</tab>
+            <tab tab-index="2">Tab 2</tab>
+            <tab tab-index="3">Tab 3</tab>
+            <tab tab-index="4">Tab 4</tab>
+            <tab tab-index="5">Tab 5</tab>
+            <tab tab-index="6">Tab 6</tab>
+            <tab tab-index="7">Tab 7</tab>
+            <tab tab-index="8">Tab 8</tab>
+            <tab tab-index="9">Tab 9</tab>
+            <tab tab-index="10">Tab 10*</tab>
+          </tabs>
+        </data>
+      </xf:instance>
+      <xf:load resource="javascript:alert('changed')" ev:event="xx-tab-changed" />
+      </xf:model>
+  </head>
+  <body>
+    <h1>Tabs</h1>
+
+    <div class="card">
+      <h2>tab-header + tab-body</h2>
+      <xx:tabs id="test-tabs">
+        <xx:tab-header tab-index="1">Tab 1</xx:tab-header>
+        <xx:tab-header tab-index="2">Tab 2*</xx:tab-header>
+        <xx:tab-header tab-index="3">Tab 3</xx:tab-header>
+        <xx:tab-body tab-index="1">Tab 1 content</xx:tab-body>
+        <xx:tab-body tab-index="2">Tab 2 content</xx:tab-body>
+        <xx:tab-body tab-index="3">Tab 3 content</xx:tab-body>
+        <xf:load resource="javascript:alert('{event('id')}: tab {event('tab-index')} selected')" if="event('tab-index') = 2" ev:event="xx-tab-changed" />
+      </xx:tabs>
+      <br/>
+      <xf:trigger>
+        <xf:label>Go to tab 2</xf:label>
+        <xx:set-tab-index id="test-tabs" value="2" ev:event="DOMActivate" />
+      </xf:trigger>
+      <xx:code lang="xml"><![CDATA[<xx:tabs id="tabs-id">
+  <xx:tab-header tab-index="1">Tab 1</xx:tab-header>
+  ...
+  <xx:tab-body tab-index="1">Tab 1 content</xx:tab-body>
+  ...
+</xx:tabs>
+<xx:set-tab-index id="tabs-id" value="..." ev:event="..." />
+<xf:load resource="javascript:alert('tabs-id: {event('id')}\\ntab-index: {event('tab-index')}')" ev:event="xx-tab-changed" />
+]]></xx:code>
+
+      <h2>tabset</h2>
+      <xx:tabs id="test-tabset" full-header="true">
+        <xx:tabset ref="instance('test-data')/tabs/tab" title="@title" tab-index="@tab-index" body="." />
+        <xx:tab-body>
+          <p>This is a dynamic tab body</p>
+          <p>Tab <xf:output ref="instance('xxforms')/tabs/test-tabset/tab-index" /> content</p>
+          <xf:trigger>
+            <xf:label>Go to tab <xf:output value="if(instance('xxforms')/tabs/test-tabset/tab-index = 10, 1, instance('xxforms')/tabs/test-tabset/tab-index + 1)" /></xf:label>
+            <xx:set-tab-index id="test-tabset" value="if(instance('xxforms')/tabs/test-tabset/tab-index = 10, 1, instance('xxforms')/tabs/test-tabset/tab-index + 1)" ev:event="DOMActivate" />
+          </xf:trigger>
+        </xx:tab-body>
+        <xf:load resource="javascript:alert('{event('id')}: tab {event('tab-index')} selected')" if="event('tab-index') = 10" ev:event="xx-tab-changed" />
+      </xx:tabs>
+      <xx:code lang="xml"><![CDATA[<xx:tabs>
+  <xx:tabset ref="tabs-ref" tab-index="tab-index/path" body="tab-header-content/path" />
+  <xx:tab-body>...</xx:tab-body>
+</xx:tabs>
+]]></xx:code>
+      <br/>
+      <h2>no tab-index</h2>
+      <xx:tabs id="test-no-index">
+        <xx:tab-header>First Tab</xx:tab-header>
+        <xx:tab-body>First tab content</xx:tab-body>
+        <xx:tab-header>Second Tab</xx:tab-header>
+        <xx:tab-body>Second tab content</xx:tab-body>
+        <xx:tab-header>Third Tab</xx:tab-header>
+        <xx:tab-body>Third tab content</xx:tab-body>
+        <!-- <xf:load resource="javascript:alert('{event('id')}: tab {event('tab-index')} selected')" if="event('tab-index') = 2" ev:event="xx-tab-changed" /> -->
+      </xx:tabs>
+      <xx:code lang="xml"><![CDATA[<xx:tabs>
+  <xx:tab-header>...</xx:tab-header>
+  <xx:tab-body>...</xx:tab-body>
+  ...
+</xx:tabs>
+]]></xx:code>
+      <br/>
+    </div>
+  </body>
+</html>

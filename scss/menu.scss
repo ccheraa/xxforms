@@ -1,0 +1,126 @@
+@use 'colors' as *;
+.xx-menu {
+  --menu-min-width: 160px;
+  cursor: pointer;
+  display: none;
+  position: fixed;
+  flex-direction: column;
+  align-items: stretch;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.05);
+  background-color: var(--control-bg);
+  min-width: var(--menu-min-width);
+  &.menu-bar {
+    display: inline-flex;
+    position: relative;
+    --menu-min-width: unset;
+    flex-direction: row;
+    > .xx-button {
+      padding-inline-end: 0.5em !important;
+      padding-inline-start: 0.5em !important;
+      &.xx-button::after {
+        content: none;
+      }
+      > .xx-menu {
+        top: 100%;
+        left: 0;
+      }
+    }
+  }
+  &.open {
+    display: inline-flex;
+    z-index: 10000;
+    button,
+    .xx-button {
+      > .xx-menu {
+        position: absolute;
+      }
+      &:hover,
+      &:focus {
+        > .xx-menu {
+          display: inline-flex;
+        }
+      }
+      &:active {
+        background-color: var(--button-text);
+        color: var(--button-bg-active);
+      }
+    }
+  }
+  &.reversed .xx-button {
+    padding-inline-start: 16px;
+    padding-inline-end: 0.5em;
+    &::after {
+      border-inline-start-color: transparent;
+      border-inline-end-color: inherit;
+      transform: translate(-2px, -50%);
+      left: 0;
+      right: auto;
+    }
+    .xx-menu {
+      left: auto;
+      right: 100%;
+    }
+  }
+  &.v-reversed .xx-button {
+    .xx-menu {
+      top: auto;
+      bottom: 0;
+    }
+  }
+  xforms-repeat,
+  xforms-repeat-item,
+  xforms-trigger,
+  xforms-body {
+    display: contents !important;
+  }
+  > .xx-button {
+    padding-inline-end: 16px;
+    padding-inline-start: 0.5em;
+    &::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      right: 0;
+      left: auto;
+      width: 0;
+      border: 6px solid transparent;
+      border-inline-start-color: inherit;
+      border-inline-end-color: transparent;
+      transform: translate(2px, -50%);
+    }
+  }
+  button,
+  > .xx-button {
+    --button-border-style: none;
+    position: relative;
+    > .xx-menu {
+      display: none;
+      margin: 0;
+      top: 0;
+      left: 100%;
+      z-index: 10;
+      box-shadow: 4px 4px 0;
+    }
+    &, xforms-label {
+      text-align: start;
+      white-space: nowrap;
+    }
+    &:hover,
+    &:focus {
+      background-color: var(--button-text);
+      color: var(--button-bg);
+    }
+    &:active {
+      background-color: var(--button-text);
+      color: var(--button-bg-active);
+    }
+  }
+  .xx-separator {
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    display: block;
+    margin: 0.25em 0.5em;
+  }
+}

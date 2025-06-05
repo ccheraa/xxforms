@@ -1,0 +1,15 @@
+@use 'colors' as *;
+.xx-button-group {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  > xforms-trigger {
+    display: contents !important;
+    > xforms-body {
+      display: contents !important;
+    }
+    &:not(:first-child) > xforms-body > button {
+      border-left: none;
+    }
+  }
+}

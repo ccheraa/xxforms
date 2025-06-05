@@ -1,0 +1,275 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events"
+  xmlns:xf="http://www.w3.org/2002/xforms" xmlns:xx="http://www.xxforms.org/2025/xxforms"
+  class="xx-{instance('test-data')/dark-mode} {instance('test-data')/theme}">
+
+<head>
+  <title>Theming</title>
+  <link rel="stylesheet" href="/res/css/themes.css" />
+  <xf:model xmlns="http://www.w3.org/2002/xforms">
+    <xf:instance id="test-data">
+      <data>
+        <themes>
+          <option value="skyline">Skyline</option>
+          <option value="harvest-gold">Harvest Gold</option>
+          <option value="midnight-terminal">Midnight Terminal</option>
+          <option value="forest-pulse">Forest Pulse</option>
+        </themes>
+        <theme>skyline</theme>
+        <mode>auto</mode>
+        <text>This is a sample text value.</text>
+        <number>
+          <a>3</a>
+          <b>0.1415</b>
+        </number>
+        <date>2000-01-01</date>
+        <image url="/res/img.svg" />
+        <file />
+        <list>
+          <selected>v1</selected>
+          <selected-many>v1</selected-many>
+          <items>
+            <item id="v1">Value 1</item>
+            <item id="v2">Value 2</item>
+            <item id="v3">Value 3</item>
+            <item id="v4">Value 4</item>
+            <item id="v5">Value 5</item>
+            <item id="v6">Value 6</item>
+            <item id="v7">Value 7</item>
+            <item id="v8">Value 8</item>
+            <item id="v9">Value 9</item>
+            <item id="v10">Value 10</item>
+          </items>
+        </list>
+      </data>
+    </xf:instance>
+    <xf:bind ref="instance('test-data')/date" type="date" />
+
+  </xf:model>
+  <style>
+    xforms-select1>xforms-body {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5em;
+    }
+
+    .wrap {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    .palette div {
+      padding: 10px;
+      padding-inline-start: 60px;
+      font-size: 24px;
+      line-height: 30px;
+      max-width: 320px;
+      font-weight: bold;
+      border: 1px solid;
+      position: relative;
+      color: var(--text-primary);
+      background-color: var(--control-bg);
+    }
+
+    .palette div:hover {
+      color: var(--control-bg);
+      background-color: var(--text-primary);
+    }
+
+    .palette div::before {
+      content: attr(data-color);
+      position: absolute;
+      left: 4px;
+      top: 4px;
+      width: 40px;
+      height: 40px;
+      border: 1px solid;
+      background-color: var(--color);
+    }
+
+    .toolbar {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 1em;
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, 240px);
+      gap: 2em;
+      margin: 0 auto 2em;
+      padding: 1em;
+      justify-items: start;
+      align-items: start;
+    }
+  </style>
+</head>
+
+<body>
+  <xx:theme name="instance('test-data')/theme" mode="instance('test-data')/mode" />
+  <h1>Theme</h1>
+  <div class="card">
+    <div class="toolbar">
+      <b>Theme</b>
+      <xx:button-group>
+        <xf:trigger>
+          <xf:label>Skyline</xf:label>
+          <xf:setvalue ref="instance('test-data')/theme" value="'theme-skyline'" ev:event="DOMActivate" />
+        </xf:trigger>
+        <xf:trigger>
+          <xf:label>Gold</xf:label>
+          <xf:setvalue ref="instance('test-data')/theme" value="'theme-gold'" ev:event="DOMActivate" />
+        </xf:trigger>
+        <xf:trigger>
+          <xf:label>Terminal</xf:label>
+          <xf:setvalue ref="instance('test-data')/theme" value="'theme-midnight'" ev:event="DOMActivate" />
+        </xf:trigger>
+        <xf:trigger>
+          <xf:label>Forest</xf:label>
+          <xf:setvalue ref="instance('test-data')/theme" value="'theme-forest'" ev:event="DOMActivate" />
+        </xf:trigger>
+      </xx:button-group>
+      <b>Mode</b>
+      <xx:button-group>
+        <xf:trigger>
+          <xf:label>System</xf:label>
+          <xf:setvalue ref="instance('test-data')/mode" value="'auto'" ev:event="DOMActivate" />
+        </xf:trigger>
+        <xf:trigger>
+          <xf:label>Light</xf:label>
+          <xf:setvalue ref="instance('test-data')/mode" value="'light'" ev:event="DOMActivate" />
+        </xf:trigger>
+        <xf:trigger>
+          <xf:label>Dark</xf:label>
+          <xf:setvalue ref="instance('test-data')/mode" value="'dark'" ev:event="DOMActivate" />
+        </xf:trigger>
+      </xx:button-group>
+    </div>
+    <h2>Color palette:</h2>
+    <div class="palette wrap">
+      <div style="--color:var(--base)">base</div>
+      <div style="--color:var(--primary-accent)">primary-accent</div>
+      <div style="--color:var(--secondary-accent)">secondary-accent</div>
+      <div style="--color:var(--card-bg)">card-bg</div>
+      <div style="--color:var(--page-bg)">page-bg</div>
+      <div style="--color:var(--input-bg)">input-bg</div>
+      <div style="--color:var(--control-bg-light)">control-bg-light</div>
+      <div style="--color:var(--control-bg)">control-bg</div>
+      <div style="--color:var(--control-bg-dark)">control-bg-dark</div>
+      <div style="--color:var(--panel-bg)">panel-bg</div>
+      <div style="--color:var(--text-primary)">text-primary</div>
+      <div style="--color:var(--text-secondary)">text-secondary</div>
+      <div style="--color:var(--border-color)">border-color</div>
+      <div style="--color:var(--shadow-color)">shadow-color</div>
+      <div style="--color:var(--success-color)">success-color</div>
+      <div style="--color:var(--warning-color)">warning-color</div>
+      <div style="--color:var(--error-color)">error-color</div>
+      <div style="--color:var(--tooltip-bg)">tooltip-bg</div>
+    </div>
+    <h2>Sample XForms controls:</h2>
+    <div class="controls">
+      <xf:input ref="instance('test-data')/text" />
+
+      <xf:input ref="instance('test-data')/text" alert="This is an alert">
+        <xf:label>Text input:</xf:label>
+        <xf:hint>There is a hint here</xf:hint>
+        <xf:help>There is help here</xf:help>
+        <!-- <xf:alert>This is an alert</xf:alert> -->
+      </xf:input>
+
+      <xf:input ref="instance('test-data')/date" />
+
+      <xf:secret ref="instance('test-data')/text" />
+
+      <xf:textarea ref="instance('test-data')/text" />
+
+      <xf:upload ref="instance('test-data')/text" />
+
+      <xf:range ref="instance('test-data')/number/a" start="0" end="10" step="0.5" />
+
+      <xf:select1 ref="instance('test-data')/list/selected">
+        <xf:item>
+          <xf:label>Value 1</xf:label>
+          <xf:value>v1</xf:value>
+        </xf:item>
+        <xf:item>
+          <xf:label>Value 2</xf:label>
+          <xf:value>v2</xf:value>
+        </xf:item>
+        <xf:item>
+          <xf:label>Value 3</xf:label>
+          <xf:value>v3</xf:value>
+        </xf:item>
+      </xf:select1>
+
+      <xf:select ref="instance('test-data')/list/selected-many">
+        <xf:itemset nodeset="instance('test-data')/list/items/item">
+          <xf:label ref="." />
+          <xf:value ref="@id" />
+        </xf:itemset>
+      </xf:select>
+      
+          <xf:trigger>
+            <xf:label>Click me</xf:label>
+            <xf:load resource="javascript:alert('Clicked!')" ev:event="DOMActivate" />
+          </xf:trigger>
+          <xf:trigger>
+            <xf:label>Open dialog</xf:label>
+            <xf:show dialog="test-dialog" ev:event="DOMActivate" />
+          </xf:trigger>
+          <dialog id="test-dialog" label="Please enter your information">
+            <p>This is a sample dialog.</p>
+            <xf:trigger>
+              <xf:label>Close</xf:label>
+              <xf:hide ev:event="DOMActivate" dialog="test-dialog" />
+            </xf:trigger>
+          </dialog>
+    </div>
+  </div>
+
+  <h1>Code:</h1>
+  <h2>To apply a theme:</h2>
+  <xx:code lang="xml"><![CDATA[<xx:theme name="instance('test-data')/theme" mode="instance('test-data')/mode" />]]></xx:code>
+
+  <h2>To define a theme:</h2>
+  <xx:code lang="css"><![CDATA[.theme-name {
+  --base: /* light mode value */;
+  --primary-accent: /* light mode value */;
+  --secondary-accent: /* light mode value */;
+  --card-bg: /* light mode value */;
+  --page-bg: /* light mode value */;
+  --input-bg: /* light mode value */;
+  --control-bg-light: /* light mode value */;
+  --control-bg: /* light mode value */;
+  --control-bg-dark: /* light mode value */;
+  --panel-bg: /* light mode value */;
+  --text-primary: /* light mode value */;
+  --text-secondary: /* light mode value */;
+  --border-color: /* light mode value */;
+  --shadow-color: /* light mode value */;
+  --success-color: /* light mode value */;
+  --warning-color: /* light mode value */;
+  --error-color: /* light mode value */;
+  --tooltip-bg: /* light mode value */;
+  --tooltip-text: /* light mode value */;
+}
+  
+.theme-name.xx-dark,
+.theme-name .xx-dark,
+.xx-dark .theme-name { /* dark mode variables */ }
+@media (prefers-color-scheme: dark) {
+  .theme-name {
+    /* dark mode variables */
+  }
+  .theme-name.xx-light,
+  .theme-name .xx-light,
+  .xx-light .theme-name { /* light mode variables */ }
+}
+]]></xx:code>
+</body>
+
+</html>

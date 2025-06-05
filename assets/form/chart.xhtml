@@ -1,0 +1,101 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:ev="http://www.w3.org/2001/xml-events"
+  xmlns:xf="http://www.w3.org/2002/xforms"
+  xmlns:xx="http://www.xxforms.org/2025/xxforms"
+>
+  <head>
+    <title>Charts</title>
+    <xf:model xmlns="http://www.w3.org/2002/xforms">
+      <xf:instance id="test-data">
+        <data>
+          <entries>
+            <entry label="January" value="45" />
+            <entry label="February" value="38" />
+            <entry label="March" value="52" />
+            <entry label="April" value="47" />
+            <entry label="May" value="60" />
+            <entry label="June" value="55" />
+            <entry label="July" value="62" />
+            <entry label="August" value="48" />
+            <entry label="September" value="53" />
+            <entry label="October" value="57" />
+            <entry label="November" value="49" />
+            <entry label="December" value="65" />
+          </entries>
+          <chart-class></chart-class>
+        </data>
+      </xf:instance>
+      <xf:setvalue ref="instance('xxforms')/chart/test-chart/width" value="400" ev:event="xforms-ready" />
+      <xf:setvalue ref="instance('xxforms')/chart/test-chart/height" value="200" ev:event="xforms-ready" />
+    </xf:model>
+    <style>
+      .test-chart {
+        width: 100%;
+        aspect-ratio: 1;
+        border: 1px solid black;
+        background-color: var(--panel-bg);
+      }
+      .xx-chart {
+        width: 100%;
+        height: 100%;
+      }
+      .colored-chart {
+        --xxforms-chart-background: #1A1A1A;
+        --xxforms-chart-bar-color: #66B2FF;
+        --xxforms-chart-axis-color: #555555;
+        --xxforms-chart-value-color: #E0E0E0;
+        --xxforms-chart-label-color: #E0E0E0;
+      }
+    </style>
+  </head>
+<body>
+  <h1>Chart</h1>
+  <div class="card">
+    <xx:button-group>
+      <xf:trigger>
+        <xf:label>Orientation</xf:label>
+        <xf:setvalue ref="instance('xxforms')/chart/test-chart/width" value="if(instance('xxforms')/chart/test-chart/width = 400, 200, 400)" ev:event="DOMActivate" />
+        <xf:setvalue ref="instance('xxforms')/chart/test-chart/height" value="if(instance('xxforms')/chart/test-chart/height = 200, 400, 200)" ev:event="DOMActivate" />
+      </xf:trigger>
+      <xf:trigger>
+        <xf:label>Margins</xf:label>
+        <xf:setvalue ref="instance('xxforms')/chart/test-chart/margin-x" value="if(instance('xxforms')/chart/test-chart/margin-x = 20, 5, 20)" ev:event="DOMActivate" />
+        <xf:setvalue ref="instance('xxforms')/chart/test-chart/margin-y" value="if(instance('xxforms')/chart/test-chart/margin-y = 20, 5, 20)" ev:event="DOMActivate" />
+      </xf:trigger>
+      <xf:trigger>
+        <xf:label>Colors</xf:label>
+        <xf:setvalue ref="instance('test-data')/chart-class" value="if(instance('test-data')/chart-class = 'colored-chart', '', 'colored-chart')" ev:event="DOMActivate" />
+      </xf:trigger>
+    </xx:button-group>
+    <hr/>
+    <div class="test-chart {instance('test-data')/chart-class}">
+      <xx:chart id="test-chart" data="instance('test-data')/entries/entry" />
+    </div>
+  </div>
+
+  <h1>Code:</h1>
+  <h2>The data:</h2>
+  <xx:code lang="xml"><![CDATA[<entry label="text" value="number" />]]></xx:code>
+  <ul>
+    <li>width</li>
+    <li>height</li>
+    <li>margin-x</li>
+    <li>margin-y</li>
+    <li>gap</li>
+    <li>y-start</li>
+    <li>y-end</li>
+  </ul>
+  <h2>The chart:</h2>
+  <xx:code lang="xml"><![CDATA[<xx:chart id="test-chart" data="instance('test-data')/entries/entry" property-name="..." />]]></xx:code>
+  <h2>Change chart prperties:</h2>
+  <xx:code lang="xml"><![CDATA[<xf:setvalue ref="instance('xxforms')/chart/chart-id/property-name" value="..." ev:event="..." />]]></xx:code>
+  <h2>Change chart colors:</h2>
+  <xx:code lang="css"><![CDATA[.chart-class {
+  --xxforms-chart-background: ...;
+  --xxforms-chart-bar-color: ...;
+  --xxforms-chart-axis-color: ...;
+  --xxforms-chart-value-color: ...;
+  --xxforms-chart-label-color: ...;
+}]]></xx:code>
+</body>
+</html>  

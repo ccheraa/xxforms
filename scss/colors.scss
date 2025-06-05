@@ -1,0 +1,74 @@
+$colors: (
+  base: #2C3E50,
+  primary-accent: #4A90E2,
+  secondary-accent: #50E3C2,
+
+  card-bg: #FFFFFF,
+  page-bg: #F5F7FA,
+  input-bg: #F8FAFC,
+  control-bg-light: #F7FBFF,
+  control-bg: #EAEFF4,
+  control-bg-dark: #c3cbd2,
+  panel-bg: #CDD1D5,
+  tooltip-bg: #FFF7C2,
+  tooltip-text: #2C3E50,
+
+  text-primary: var(--base),
+  text-secondary: #7F8C8D,
+
+  border-color: var(--base),
+  shadow-color: rgba(0, 0, 0, 0.1),
+
+  success-color: #27AE60,
+  warning-color: #F39C12,
+  error-color: #E74C3C
+);
+
+$colors-dark: (
+  base: #ECF0F1,
+  primary-accent: #4A90E2,
+  secondary-accent: #50E3C2,
+
+  card-bg: #2C3E50,
+  page-bg: #1A1D21,
+  input-bg: #2A2F36,
+  control-bg-light: #3A3F45,
+  control-bg: #4B5159,
+  control-bg-dark: #5C646D,
+  panel-bg: #3E444B,
+  tooltip-bg: #FFD95B,
+  tooltip-text: #1A1D21,
+
+  text-primary: var(--base),
+  text-secondary: #BDC3C7,
+
+  border-color: var(--base),
+  shadow-color: rgba(0, 0, 0, 0.6),
+
+  success-color: #2ECC71,
+  warning-color: #F1C40F,
+  error-color: #E74C3C
+);
+
+@mixin css-variables($map) {
+  @each $key, $value in $map {
+    --#{$key}: #{$value};
+  }
+}
+
+:root {
+  @include css-variables($colors);
+}
+
+.xx-dark {
+  @include css-variables($colors-dark);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    @include css-variables($colors-dark);
+  }
+  .xx-light {
+    @include css-variables($colors);
+  }
+}

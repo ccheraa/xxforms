@@ -1,0 +1,72 @@
+@use 'colors' as *;
+.xx-tabs {
+  --tabs-light-bg: var(--card-bg);
+  --tabs-medium-bg: var(--panel-bg);
+  --tabs-dark-bg: var(--panel-bg);
+  --tabs-border-color: var(--border-color);
+  border: 1px solid var(--tabs-border-color);
+  &.xx-full-header {
+    .xx-tab-headers {
+      &:before {
+        content: none;
+      }
+      display: flex;
+      & > .xx-tab-header:last-child,
+      & > xforms-repeat > xforms-repeat-item:last-child > .xx-tab-header {
+        border-inline-end: none;
+      }
+    }
+    .xx-tab-header {
+      border-bottom: 1px solid var(--tabs-border-color);
+      flex: 1;
+    }
+  }
+  .xx-tab-headers {
+    overflow-x: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    display: flex;
+    flex-direction: row;
+    background-color: var(--tabs-medium-bg);
+    position: relative;
+    &:before {
+      content: "";
+      display: block;
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 1px;
+      background-color: var(--tabs-border-color);
+    }
+    xforms-repeat, xforms-repeat-item, xforms-trigger, xforms-body {
+      display: contents;
+    }
+    .xx-tab-header {
+      white-space: nowrap;
+      border-inline-end: 1px solid;
+      position: relative;
+      display: flex;
+      align-items: stretch;
+      xforms-trigger xforms-body a {
+        margin: 0;
+        display: inline-block;
+        padding: 0.2em 0.6em;
+        flex: 1;
+        text-align: center;
+      }
+    }
+  }
+  .xx-tab-header.active {
+    background-color: var(--tabs-light-bg);
+    border-bottom-color: var(--tabs-light-bg);
+  }
+  .xx-tab-body {
+    background-color: var(--tabs-light-bg);
+    padding: 1em;
+  }
+}

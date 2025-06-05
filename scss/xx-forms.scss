@@ -1,0 +1,36 @@
+@use 'colors' as *;
+@use 'ui' as *;
+@use 'date-picker' as *;
+@use 'button-group' as *;
+@use 'icons' as *;
+@use 'tabs' as *;
+@use 'menu' as *;
+@use 'chart' as *;
+@use 'examples' as *;
+
+body {
+  background-color: var(--page-bg);
+  color: var(--text-primary);
+}
+
+.xforms-trigger, .xforms-body {
+  display: contents;
+}
+a, xforms-trigger[xf-appearance="minimal"] a {
+  color: var(--primary-accent);
+  &:hover {
+    color: var(--secondary-accent);
+  }
+  &:active, &:focus, &:visited {
+    color: var(--primary-color);
+  }
+}
+
+xforms-trigger {
+  a,
+  a:link,
+  a:hover,
+  a:visited {
+    color: inherit;
+  }
+}
