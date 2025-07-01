@@ -1,17 +1,18 @@
-import { $, randomUUIDv7, ShellError } from "bun";
 import { basename, resolve } from "path";
 import { existsSync, unlinkSync } from "fs";
+import { $, uid } from "./utils";
+import { readFile } from "fs/promises";
 
 export async function transformXml(xml: string, xsl: string): Promise<string> {
   let out: string;
-  while (existsSync(out = resolve('assets/tmp', `${basename(xml)}_${basename(xsl)}_${randomUUIDv7()}.xml`))) {}
+  while (existsSync(out = resolve('assets/tmp', `${basename(xml)}_${basename(xsl)}_${uid()}.xml`))) {}
   try {
     console.log(`Transforming ${xml} with ${xsl}...`);
     await $`java -jar saxon/saxon.jar -s:${xml} -xsl:${xsl} -o:${out} baseuri="/xsltforms/"`;
     return out;
   } catch (error: any) {
     console.log('-------------------------------------');
-    console.log((error as ShellError).text());
+    console.log(error.text());
     console.log('-------------------------------------');
     console.error(error);
     if (existsSync(out)) {
@@ -23,7 +24,7 @@ export async function transformXml(xml: string, xsl: string): Promise<string> {
 
 export async function transform(xml: string, xsl: string, clean = true): Promise<string> {
   const out = await transformXml(xml, xsl);
-  const result = await Bun.file(out).text();
+  const result = await readFile(out, 'utf-8');
   if (clean) {
     unlinkSync(out);
   }

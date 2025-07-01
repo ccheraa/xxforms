@@ -2,8 +2,8 @@
   "name": "xxforms",
   "scripts": {
     "css": "sass --watch --style=compressed --source-map --embed-sources scss/xx-forms.scss static/xx-forms.css",
-    "js": "bun build src/client/xx-forms.ts --outdir=static --sourcemap --watch --no-clear-screen --minify",
-    "server": "bun run --watch --no-clear-screen src/server/index.ts",
+    "js": "esbuild src/client/xx-forms.ts --bundle --outfile=static/xx-forms.js --sourcemap --minify --platform=browser --target=es2018",
+    "server": "ts-node-dev -P src/server/tsconfig.json --respawn --transpile-only --pretty -- src/server/index.ts",
     "dev": "concurrently --n --c cyan,yellow,green \"bun:css\" \"bun:js\" \"bun:server\""
   },
   "dependencies": {
@@ -11,8 +11,9 @@
     "hono": "^4.7.4"
   },
   "devDependencies": {
-    "@types/bun": "latest",
     "concurrently": "^9.1.2",
-    "sass": "^1.85.1"
+    "esbuild": "^0.25.5",
+    "sass": "^1.85.1",
+    "ts-node-dev": "^2.0.0"
   }
 }

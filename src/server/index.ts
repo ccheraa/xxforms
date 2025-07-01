@@ -3,8 +3,13 @@ import { Hono } from 'hono'
 import { xform, xslt, xxform } from './lib/xml'
 import { compileTS } from './lib/typescript'
 import { compileSCSS } from './lib/scss'
+import { readFile } from 'fs/promises'
+import { logger } from 'hono/logger'
+import { serve } from '@hono/node-server'
 
 const app = new Hono()
+
+app.use(logger());
 
 app.use('/res/*', serveStatic({
   root: './static',
@@ -47,7 +52,9 @@ app.get('/scss/:path', async c => {
 });
 
 app.get('/', async (c) => {
-  return c.html(await Bun.file('./index.html').text());
+  return c.html(await readFile('./index.html', 'utf-8'));
 });
+
+serve(app);
 
 export default app
