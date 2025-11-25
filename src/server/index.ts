@@ -55,6 +55,11 @@ app.get('/', async (c) => {
   return c.html(await readFile('./index.html', 'utf-8'));
 });
 
-serve(app);
+serve({
+  fetch: app.fetch,
+  port: Number.parseInt(process.env.PORT ?? '3000'),
+}, info => {
+  console.log(`Listening on http://localhost:${info.port}`);
+});
 
 export default app

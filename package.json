@@ -4,7 +4,7 @@
     "css": "sass --watch --style=compressed --source-map --embed-sources scss/xx-forms.scss static/xx-forms.css",
     "js": "esbuild src/client/xx-forms.ts --bundle --outfile=static/xx-forms.js --sourcemap --minify --platform=browser --target=es2018",
     "server": "ts-node-dev -P src/server/tsconfig.json --respawn --transpile-only --pretty -- src/server/index.ts",
-    "dev": "concurrently --n --c cyan,yellow,green \"bun:css\" \"bun:js\" \"bun:server\""
+    "dev": "concurrently --n --c cyan,yellow,green \"npm run css\" \"npm run js\" \"npm run server\""
   },
   "dependencies": {
     "@hono/node-server": "^1.13.8",
